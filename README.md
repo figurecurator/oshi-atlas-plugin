@@ -15,7 +15,7 @@ This repository is one plugin packaged for two hosts. Both point at the same ser
 | Claude (Claude Code, claude.ai, Cowork) | `.claude-plugin/plugin.json` | `.mcp.json` |
 | ChatGPT and Codex | `plugin.json` | `mcp.json` |
 
-- **An MCP connector** to the remote server `https://figure-curator.com/mcp/atlas`. It needs no account or API key.
+- **An MCP connector** to the remote server `https://figure-curator.com/mcp`. It needs no account or API key.
 - **A skill** (`oshi-atlas`) that tells the assistant how to use the tools well: resolve a name first, follow connections one step at a time, keep covers distinct from originals, report when prices were observed, and ask before sending a suggestion.
 
 The plugin has no hooks, no scripts and nothing that runs on your machine.
@@ -24,17 +24,19 @@ The plugin has no hooks, no scripts and nothing that runs on your machine.
 
 | Tool | What it does | Sends data to keep? |
 | --- | --- | --- |
-| `resolve_identity` | Find an artist, song, title, character or figure from a name, YouTube link or ID | No |
+| `resolve_identity` | Find an artist, song, title, character or figure from a name, YouTube link or ID | Anonymous search demand, see below |
 | `get_relationships` | List what is directly connected to an entity | No |
 | `get_listening_links` | Links to an original recording or a cover on YouTube Music, YouTube or Spotify | No |
-| `search_figures` | Search figures by character, title, brand or product name | No |
+| `search_figures` | Search figures by character, title, brand or product name | Anonymous search demand, see below |
 | `get_figure` | Release details and observed offers for one figure | No |
 | `suggest_discovery` | Suggest an artist the catalog lacks, for review | Yes, see below |
 | `get_discovery_status` | Check where a suggestion stands | No |
 
 ## Data and privacy
 
-Every tool call goes to `figure-curator.com` over HTTPS. Read-only lookups send only the search text or ID that the assistant passes in.
+Every tool call goes to `figure-curator.com` over HTTPS. Lookups send only the search text or ID that the assistant passes in.
+
+`resolve_identity` and `search_figures` also count demand: the normalized search text or catalog ID, how much it was asked for and how few results it found are aggregated without anything that identifies the user, and used to decide what the catalog collects next. Search text that looks like an address or contact detail is left out of that count. It never changes the public catalog directly.
 
 `suggest_discovery` is the only tool that stores anything. It sends an artist's name (up to 80 characters) and, optionally, the address of that artist's official YouTube channel. Oshi Atlas stores the suggestion without any information about who sent it, and a person reviews it before anything is added to the catalog. The skill tells the assistant to explain what will be sent and to wait for your agreement before calling it.
 

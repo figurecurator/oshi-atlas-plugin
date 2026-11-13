@@ -2,7 +2,7 @@
   "mcpServers": {
     "oshi-atlas": {
       "type": "http",
-      "url": "https://figure-curator.com/mcp/atlas"
+      "url": "https://figure-curator.com/mcp"
     }
   }
 }
