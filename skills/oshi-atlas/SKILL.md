@@ -5,7 +5,7 @@ description: Use the Oshi Atlas tools to answer questions about VTubers, singers
 
 # Oshi Atlas
 
-Oshi Atlas is one catalog that connects songs, artists, titles (anime, games and other IP), characters and figures. Its tools come from the `oshi-atlas` MCP server. The catalog is curated, not exhaustive: a missing result means the catalog has no such connection yet, never that none exists.
+Oshi Atlas is one catalog that connects songs, artists, titles (anime, games and other IP), characters and figures. Its tools come only from the `oshi-atlas` MCP server at `https://figure-curator.com/mcp`. Use `resolve_identity` and `get_relationships`; do not call the withdrawn `resolve_entity` or `get_related` tools. The catalog is curated, not exhaustive: a missing result means the catalog has no such connection yet, never that none exists.
 
 ## Find the entity first
 
@@ -13,11 +13,11 @@ Start with `resolve_identity`. It takes a name, a YouTube link or an `entityId`,
 
 - With several candidates, show them and let the user choose. Do not pick one silently.
 - Narrow with `kinds` (for example `["artist"]` or `["work"]`) when the user's words make the kind clear.
-- Keep the returned `entityId` (such as `artist:…`, `work:…`, `character:…`, `figure:…`). Every other tool continues from it.
+- Keep the returned `entityId` (such as `artist:…`, `work:…`, `character:…`, `figure:…`). Use it with `get_relationships`; the listening and figure tools take the IDs described below.
 
 ## Follow connections one step at a time
 
-Call `get_relationships` with an `entityId` to see what is directly connected: songs and artists, or titles, characters and figures. It returns a bounded preview, not the whole graph.
+Call `get_relationships` with an `entityId`, optional `target` (`music`, `figures`, `all`) and optional `limit` (1–40) to see what is directly connected: songs and artists, or titles, characters and figures. It returns a bounded preview, not the whole graph. Do not pass pagination cursors or relation-type filters.
 
 - Move outward one hop per call, from the result you actually need, instead of expanding everything.
 - When `truncated` is true, say the list is partial and give the catalog URL for the full list.
@@ -39,7 +39,7 @@ Prices and stock are observations with timestamps. Report the time each one was 
 
 ## Suggest a missing artist (asks the user first)
 
-When `resolve_identity` finds no artist the user asked about, you may offer to suggest it with `suggest_discovery`. This is the only tool that sends anything to Oshi Atlas to keep.
+When `resolve_identity` finds no artist the user asked about, you may offer to suggest it with `suggest_discovery`. This explicitly submits an artist for investigation. Search tools can also record anonymous demand signals for discovery; neither action directly changes the public catalog.
 
 1. Tell the user exactly what would be sent: the artist's name and, if they give one, the official YouTube channel address (`/channel/UC…` or `/@handle`). Nothing else — no conversation text and no personal details.
 2. Call `suggest_discovery` only after the user agrees.
@@ -48,5 +48,7 @@ When `resolve_identity` finds no artist the user asked about, you may offer to s
 Use `get_discovery_status` with that ID when the user asks later. Lookups run a few times a day and review is manual, so a status can stay the same for days.
 
 ## Cite the catalog
+
+Never send conversation text or personal details as search input.
 
 Link the catalog pages the tools return for every artist, song, character or figure you mention, so the user can check the source.

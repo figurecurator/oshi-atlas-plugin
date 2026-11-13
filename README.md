@@ -2,7 +2,7 @@
 
 ![Oshi Atlas](assets/icon.png)
 
-Oshi Atlas lets Claude and ChatGPT explore one catalog that connects songs, artists, anime and game titles, characters and figures. Ask who sang a song, which covers exist and where to listen, which figures exist for a character, or what a figure currently costs, and the assistant answers from the catalog with links to its pages.
+Oshi Atlas lets Claude and ChatGPT explore one catalog that connects songs, artists, anime and game titles, characters and figures. Ask who sang a song, which covers exist and where to listen, which figures exist for a character, or which figure prices have been observed, and the assistant answers from the catalog with links to its pages.
 
 The catalog behind it is shared by [Music Curator](https://music-curator.app) and [Figure Curator](https://figure-curator.com), both run by RainbowSoft.
 
@@ -24,21 +24,21 @@ The plugin has no hooks, no scripts and nothing that runs on your machine.
 
 | Tool | What it does | Sends data to keep? |
 | --- | --- | --- |
-| `resolve_identity` | Find an artist, song, title, character or figure from a name, YouTube link or ID | Anonymous search demand, see below |
+| `resolve_identity` | Find an artist, song, title, character or figure from a name, YouTube link or ID | Anonymous search demand |
 | `get_relationships` | List what is directly connected to an entity | No |
 | `get_listening_links` | Links to an original recording or a cover on YouTube Music, YouTube or Spotify | No |
-| `search_figures` | Search figures by character, title, brand or product name | Anonymous search demand, see below |
+| `search_figures` | Search figures by character, title, brand or product name | Anonymous search demand |
 | `get_figure` | Release details and observed offers for one figure | No |
 | `suggest_discovery` | Suggest an artist the catalog lacks, for review | Yes, see below |
 | `get_discovery_status` | Check where a suggestion stands | No |
 
 ## Data and privacy
 
-Every tool call goes to `figure-curator.com` over HTTPS. Lookups send only the search text or ID that the assistant passes in.
+Every tool call goes to `figure-curator.com` over HTTPS. Read-only lookups send only the search text or ID that the assistant passes in.
 
-`resolve_identity` and `search_figures` also count demand: the normalized search text or catalog ID, how much it was asked for and how few results it found are aggregated without anything that identifies the user, and used to decide what the catalog collects next. Search text that looks like an address or contact detail is left out of that count. It never changes the public catalog directly.
+Searches through `resolve_identity` and `search_figures` can record normalized catalog search terms or entity IDs, demand weights and result shortages without identifying the user. These signals guide catalog discovery; they do not directly change the public catalog. Do not send personal information in tool arguments.
 
-`suggest_discovery` is the only tool that stores anything. It sends an artist's name (up to 80 characters) and, optionally, the address of that artist's official YouTube channel. Oshi Atlas stores the suggestion without any information about who sent it, and a person reviews it before anything is added to the catalog. The skill tells the assistant to explain what will be sent and to wait for your agreement before calling it.
+`suggest_discovery` explicitly sends an artist's name (up to 80 characters) and, optionally, the address of that artist's official YouTube channel. Oshi Atlas stores the suggestion without any information about who sent it, and a person reviews it before anything is added to the catalog. The skill tells the assistant to explain what will be sent and to wait for your agreement before calling it.
 
 See the [privacy policy](https://figure-curator.com/privacy) and [terms](https://figure-curator.com/terms).
 
@@ -54,6 +54,8 @@ See the [privacy policy](https://figure-curator.com/privacy) and [terms](https:/
 ### ChatGPT and Codex
 
 Add Oshi Atlas from the ChatGPT plugin directory once it is listed. The portable `plugin.json` and `mcp.json` at the repository root are the ChatGPT package; they point at the same endpoint with no authentication.
+
+Version 0.2.0 uses only `/mcp`, whose server identity is `oshi-atlas` and whose seven tools are listed above. Refresh an existing `/mcp` connection to replace the withdrawn Figure Curator tool list. Existing `/mcp/atlas` connections keep working through a direct alias serving the same Oshi Atlas tools. Publish the `/mcp` plugin update only after the server supports Atlas on both paths.
 
 Then try: "Find music and related figures for Hoshimachi Suisei."
 
