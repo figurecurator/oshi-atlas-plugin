@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "oshi-atlas",
   "displayName": "Oshi Atlas",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Explore the Oshi Atlas catalog connecting music, artists, titles, characters and figures, with listening links and figure prices.",
   "author": {
     "name": "RainbowSoft",

@@ -18,8 +18,7 @@ This repository is one plugin packaged for two hosts. Both point at the same ser
 - **An MCP connector** to the remote server `https://figure-curator.com/mcp/atlas`. It needs no account or API key.
 - **A skill** (`oshi-atlas`) that tells the assistant how to use the tools well: resolve a name first, follow connections one step at a time, keep covers distinct from originals, report when prices were observed, and ask before sending a suggestion.
 
-The installed plugin has no hooks or local executable tools. The development
-packaging script below only builds an archive for upload.
+The plugin has no hooks, no scripts and nothing that runs on your machine.
 
 ## Tools
 
@@ -52,42 +51,7 @@ See the [privacy policy](https://figure-curator.com/privacy) and [terms](https:/
 
 ### ChatGPT and Codex
 
-The portable `mcp.json` declares the endpoint. For a private ChatGPT installation,
-also register that endpoint as a custom MCP server and bind its actual App ID to
-the package. Uploading the portable ZIP alone does not establish that registered
-connection. Merely seeing the plugin's name in chat is not proof that its tools
-are available.
-
-1. In [ChatGPT Plugins](https://chatgpt.com/plugins), choose **+ → Add custom MCP server**.
-2. Name the connection **Oshi Atlas MCP**, set the server URL to
-   `https://figure-curator.com/mcp/atlas`, and select **No authentication**.
-3. Review the warning and create the connection. Confirm that it exposes all
-   seven tools listed above, especially `suggest_discovery` and `get_discovery_status`.
-4. Obtain the connection's verified `asdk_app_…` ID from its generated `.app.json`.
-   The `plugin_asdk_app_…` URL identifies the connection's plugin; it is not the App ID.
-5. Build an account package with Node.js 18+ and `tar` (available on current
-   Windows, macOS and Linux):
-
-   ```sh
-   node scripts/package-chatgpt.mjs --app-id YOUR_VERIFIED_ATLAS_APP_ID
-   ```
-
-   The script writes `dist/oshi-atlas-<version>-account.tar.gz`. It includes the shared
-   skill and icon, and adds `.app.json` plus `extensions.com.openai.apps` only to
-   that ZIP. Update the existing Oshi Atlas plugin with it; keep its identity and
-   private audience. Do not bind the legacy Figure Curator `/mcp` app.
-6. Enable the updated plugin and test it in a new chat. Check the tool-call details:
-   `resolve_identity` should answer a catalog query, and `get_discovery_status`
-   should read a real suggestion ID. If the tool is absent, the connection test
-   has not passed; an SDK/HTTP response is not a substitute for a chat tool call.
-
-After changing the server's tools, use **Refresh** on the **Oshi Atlas MCP**
-connection and confirm the tool list before testing again. Keep account-specific
-App IDs out of the portable source. For a portable archive, run the packaging script
-without `--app-id`; public directory submission uses its separate MCP setup flow.
-
-See [OpenAI's package guidance](https://developers.openai.com/plugins/build/plugins)
-and [connection testing guide](https://developers.openai.com/plugins/deploy/connect-chatgpt).
+Add Oshi Atlas from the ChatGPT plugin directory once it is listed. The portable `plugin.json` and `mcp.json` at the repository root are the ChatGPT package; they point at the same endpoint with no authentication.
 
 Then try: "Find music and related figures for Hoshimachi Suisei."
 
