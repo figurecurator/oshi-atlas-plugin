@@ -8,7 +8,7 @@
     "email": "contact@rainbowsoft.co.kr",
     "url": "https://rainbowsoft.co.kr/"
   },
-  "homepage": "https://figure-curator.com",
+  "homepage": "https://rainbowsoft.co.kr/",
   "repository": "https://github.com/figurecurator/oshi-atlas-plugin",
   "license": "MIT",
   "extensions": {
@@ -22,7 +22,11 @@
         "longDescription": "Explore artists, songs, titles, characters, figures and listening links in the Music Curator and Figure Curator catalog. Artist suggestions send only the artist name and optional official YouTube channel URL with user agreement, and require administrator review.",
         "shortDescription": "Music, characters and figures",
         "logo": "./assets/icon.png",
-        "composerIcon": "./assets/icon.png"
+        "composerIcon": "./assets/icon.png",
+        "websiteURL": "https://rainbowsoft.co.kr/",
+        "supportURL": "https://rainbowsoft.co.kr/support/",
+        "privacyPolicyURL": "https://rainbowsoft.co.kr/privacy/",
+        "termsOfServiceURL": "https://rainbowsoft.co.kr/terms/"
       }
     }
   }
