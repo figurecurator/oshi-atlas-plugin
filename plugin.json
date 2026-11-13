@@ -1,0 +1,24 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "oshi-atlas",
+  "version": "0.1.2",
+  "description": "Explore the Oshi Atlas catalog connecting music, artists, titles, characters and figures.",
+  "author": {
+    "name": "Taehwan Kim",
+    "email": "maxtortime@gmail.com"
+  },
+  "homepage": "https://figure-curator.com",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "capabilities": [],
+        "category": "Entertainment",
+        "defaultPrompt": "Find music and related figures for Hoshimachi Suisei.",
+        "developerName": "Taehwan Kim",
+        "displayName": "Oshi Atlas",
+        "longDescription": "Explore artists, songs, titles, characters, figures and listening links in the Music Curator and Figure Curator catalog. Artist suggestions send only the artist name and optional official YouTube channel URL with user agreement, and require administrator review.",
+        "shortDescription": "Music, characters and figures"
+      }
+    }
+  }
+}
