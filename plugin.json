@@ -27,6 +27,65 @@
         "supportURL": "https://rainbowsoft.co.kr/support/",
         "privacyPolicyURL": "https://rainbowsoft.co.kr/privacy/",
         "termsOfServiceURL": "https://rainbowsoft.co.kr/terms/"
+      },
+      "review": {
+        "prompts": [
+          "Find music and related figures for Hoshimachi Suisei.",
+          "Find the original and cover listening links for BIBBIDIBA on YouTube Music.",
+          "Find Hatsune Miku figures and show when their prices were observed."
+        ],
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Resolve a named artist and follow direct catalog relationships. No account or setup is required.",
+              "prompt": "Find Hoshimachi Suisei and show the songs and related figures in your catalog.",
+              "tools_triggered": "resolve_identity, get_relationships",
+              "expected_behavior": "Resolve Hoshimachi Suisei as an artist, ask for selection if ambiguous, then pass the returned entityId to get_relationships. Cite returned catalog pages, identify bounded or truncated results, and do not infer song-specific merchandise from a shared performer."
+            },
+            {
+              "description": "Keep original and cover recordings distinct while selecting a preferred listening platform.",
+              "prompt": "Find BIBBIDIBA and give me YouTube Music links for its original recording and any covers in the catalog.",
+              "tools_triggered": "resolve_identity, get_listening_links",
+              "expected_behavior": "Resolve the work, use the ID after work: as workId, and query original and cover separately with preferredPlatform youtube_music. Report only returned links, explain missing selected links or empty results, and identify links derived from YouTube IDs without claiming playback was verified."
+            },
+            {
+              "description": "Search figures and retrieve an observed offer for a catalog product.",
+              "prompt": "Find Hatsune Miku figures. Show the release details and observed prices of one result, with source links and observation times.",
+              "tools_triggered": "search_figures, get_figure",
+              "expected_behavior": "Search Hatsune Miku, pass an actual returned catalog product ID to get_figure, and cite the returned catalog and seller pages. State observed price, currency and timestamp when present; missing fields remain unknown. Do not claim live inventory or place an order."
+            },
+            {
+              "description": "Explicit consent to submit a missing real artist by name only. If already cataloged, return that artist instead; do not manufacture a new queue entry.",
+              "prompt": "Look for Daft Punk in the catalog. If they are missing, I agree to send only the artist name Daft Punk to Oshi Atlas for administrator review. Tell me the result and any suggestion ID.",
+              "tools_triggered": "resolve_identity, suggest_discovery (only if not found)",
+              "expected_behavior": "Resolve the artist first. If not found, explain the name-only submission and use suggest_discovery with kind artist and name Daft Punk, without conversation text or personal details. Accurately report queued, duplicate, already_in_catalog or limits. Queued or duplicate results must include the returned suggestionId and must not imply publication. If already resolved, cite the catalog artist and do not submit."
+            },
+            {
+              "description": "Read an existing suggestion receipt without resubmitting it. Fixture: previously issued public suggestion ID 108c8849-683d-4a57-9de4-e9586b337073; no login required.",
+              "prompt": "What is the status of my Oshi Atlas suggestion 108c8849-683d-4a57-9de4-e9586b337073?",
+              "tools_triggered": "get_discovery_status",
+              "expected_behavior": "Call get_discovery_status with exactly the supplied suggestionId, explain the current returned status without inventing completion dates, and link returned public artist pages if registered. If the receipt is no longer found, report that accurately; do not create a replacement suggestion."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Purchasing and payment are unsupported. Explain the limitation without ordering, charging or submitting an artist suggestion. No catalog tool call is needed for this purchase-only request.",
+              "prompt": "Buy the figure already selected in my shopping cart and charge my saved card."
+            },
+            {
+              "description": "Catalog tools cannot access private listening accounts or change playlists. Explain the limitation and do not call a catalog tool or claim a playlist was modified.",
+              "prompt": "Open my private Spotify account and delete all my playlists."
+            },
+            {
+              "description": "Unrelated programming work is outside the music and merchandise catalog. Do not invoke any Oshi Atlas tool; answer normally or clarify the coding request.",
+              "prompt": "Write a Python function that sorts a list of integers."
+            }
+          ]
+        }
+      },
+      "publication": {
+        "release_notes": "Oshi Atlas 0.2.0 uses the consolidated /mcp endpoint, documents all seven tools, and discloses anonymous search demand and artist suggestion review.",
+        "countries": []
       }
     }
   }
