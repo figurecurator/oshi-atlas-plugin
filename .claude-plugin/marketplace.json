@@ -1,0 +1,15 @@
+{
+  "name": "rainbowsoft",
+  "description": "Plugins published by RainbowSoft",
+  "owner": {
+    "name": "RainbowSoft",
+    "email": "contact@rainbowsoft.co.kr"
+  },
+  "plugins": [
+    {
+      "name": "oshi-atlas",
+      "source": "./",
+      "description": "Explore music, artists, titles, characters and figures in the Oshi Atlas catalog."
+    }
+  ]
+}

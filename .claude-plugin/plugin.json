@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "oshi-atlas",
+  "displayName": "Oshi Atlas",
+  "version": "0.1.0",
+  "description": "Explore the Oshi Atlas catalog connecting music, artists, titles, characters and figures, with listening links and figure prices.",
+  "author": {
+    "name": "RainbowSoft",
+    "email": "contact@rainbowsoft.co.kr",
+    "url": "https://figure-curator.com"
+  },
+  "homepage": "https://figure-curator.com",
+  "repository": "https://github.com/figurecurator/oshi-atlas-plugin",
+  "license": "MIT",
+  "keywords": ["music", "vtuber", "anime", "figures", "merchandise", "catalog"],
+  "icon": "./icon.png",
+  "documentationUrl": "https://github.com/figurecurator/oshi-atlas-plugin#readme",
+  "supportUrl": "https://github.com/figurecurator/oshi-atlas-plugin/issues",
+  "privacyPolicyUrl": "https://figure-curator.com/privacy",
+  "termsOfServiceUrl": "https://figure-curator.com/terms"
+}
