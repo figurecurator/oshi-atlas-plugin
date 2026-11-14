@@ -2,18 +2,17 @@
 
 ![Oshi Atlas](assets/icon.png)
 
-Oshi Atlas lets Claude and ChatGPT explore one catalog that connects songs, artists, anime and game titles, characters and figures. Ask who sang a song, which covers exist and where to listen, which figures exist for a character, or which figure prices have been observed, and the assistant answers from the catalog with links to its pages.
+Oshi Atlas lets Claude explore one catalog that connects songs, artists, anime and game titles, characters and figures. Ask who sang a song, which covers exist and where to listen, which figures exist for a character, or which figure prices have been observed, and the assistant answers from the catalog with links to its pages.
 
 The catalog behind it is shared by [Music Curator](https://music-curator.app) and [Figure Curator](https://figure-curator.com), both run by RainbowSoft.
 
 ## What the plugin contains
 
-This repository is one plugin packaged for two hosts. Both point at the same server and share the skill, README, license and icon.
+This public repository contains the Claude plugin for Claude Code, claude.ai and Cowork. It contains only the files needed to install the plugin. The ChatGPT and Codex plugin is maintained separately in the main Figure Curator repository; both connect to the same remote MCP server. The server implementation is not part of this plugin.
 
 | Host | Manifest | MCP config |
 | --- | --- | --- |
 | Claude (Claude Code, claude.ai, Cowork) | `.claude-plugin/plugin.json` | `.mcp.json` |
-| ChatGPT and Codex | `plugin.json` | `mcp.json` |
 
 - **An MCP connector** to the remote server `https://figure-curator.com/mcp`. It needs no account or API key.
 - **A skill** (`oshi-atlas`) that tells the assistant how to use the tools well: resolve a name first, follow connections one step at a time, keep covers distinct from originals, report when prices were observed, and ask before sending a suggestion.
@@ -51,11 +50,7 @@ See the [privacy policy](https://figure-curator.com/privacy) and [terms](https:/
 /plugin install oshi-atlas@rainbowsoft
 ```
 
-### ChatGPT and Codex
-
-Add Oshi Atlas from the ChatGPT plugin directory once it is listed. The portable `plugin.json` and `mcp.json` at the repository root are the ChatGPT package; they point at the same endpoint with no authentication.
-
-Version 0.2.0 uses only `/mcp`, whose server identity is `oshi-atlas` and whose seven tools are listed above. Refresh an existing `/mcp` connection to replace the withdrawn Figure Curator tool list. Existing `/mcp/atlas` connections keep working through a direct alias serving the same Oshi Atlas tools. Publish the `/mcp` plugin update only after the server supports Atlas on both paths.
+Version 0.2.0 uses only `/mcp`, whose server identity is `oshi-atlas` and whose seven tools are listed above. Refresh an existing `/mcp` connection to replace the withdrawn Figure Curator tool list. Existing `/mcp/atlas` connections keep working through a direct alias serving the same Oshi Atlas tools. Release the Claude plugin update only after the server supports Atlas on both paths.
 
 Then try: "Find music and related figures for Hoshimachi Suisei."
 
