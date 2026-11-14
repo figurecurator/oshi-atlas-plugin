@@ -19,7 +19,7 @@
         "defaultPrompt": "Find music and related figures for Hoshimachi Suisei.",
         "developerName": "RainbowSoft",
         "displayName": "Oshi Atlas",
-        "longDescription": "Explore artists, songs, titles, characters, figures and listening links in the Music Curator and Figure Curator catalog. Artist suggestions send only the artist name and optional official YouTube channel URL with user agreement, and require administrator review.",
+        "longDescription": "Explore artists, songs, titles, characters, figures and listening links in the Music Curator and Figure Curator catalog. Artist suggestions send only the artist name and optional official YouTube channel URL with user agreement; a later automated lookup may add the artist to the catalog.",
         "shortDescription": "Music, characters and figures",
         "logo": "./assets/icon.png",
         "composerIcon": "./assets/icon.png",
@@ -56,7 +56,7 @@
             },
             {
               "description": "Explicit consent to submit a missing real artist by name only. If already cataloged, return that artist instead; do not manufacture a new queue entry.",
-              "prompt": "Look for Daft Punk in the catalog. If they are missing, I agree to send only the artist name Daft Punk to Oshi Atlas for administrator review. Tell me the result and any suggestion ID.",
+              "prompt": "Look for Daft Punk in the catalog. If they are missing, I agree to send only the artist name Daft Punk to Oshi Atlas for lookup. Tell me the result and any suggestion ID.",
               "tools_triggered": "resolve_identity, suggest_discovery (only if not found)",
               "expected_behavior": "Resolve the artist first. If not found, explain the name-only submission and use suggest_discovery with kind artist and name Daft Punk, without conversation text or personal details. Accurately report queued, duplicate, already_in_catalog or limits. Queued or duplicate results must include the returned suggestionId and must not imply publication. If already resolved, cite the catalog artist and do not submit."
             },
@@ -84,7 +84,7 @@
         }
       },
       "publication": {
-        "release_notes": "Oshi Atlas 0.2.0 uses the consolidated /mcp endpoint, documents all seven tools, and discloses anonymous search demand and artist suggestion review.",
+        "release_notes": "Oshi Atlas 0.2.0 uses the consolidated /mcp endpoint, documents all seven tools, and discloses anonymous search demand and automated artist suggestion lookup.",
         "countries": []
       }
     }

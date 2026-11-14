@@ -43,9 +43,9 @@ When `resolve_identity` finds no artist the user asked about, you may offer to s
 
 1. Tell the user exactly what would be sent: the artist's name and, if they give one, the official YouTube channel address (`/channel/UC…` or `/@handle`). Nothing else — no conversation text and no personal details.
 2. Call `suggest_discovery` only after the user agrees.
-3. Report the `suggestionId`. A suggestion is reviewed by a person and may be declined; it never changes the catalog immediately.
+3. Report the `suggestionId`. It is a receipt for the request, not a catalog artist ID. The suggestion never changes the catalog immediately: a later lookup can register the artists it finds without human review, and a suggestion may also end as not found, declined or left unregistered.
 
-Use `get_discovery_status` with that ID when the user asks later. Lookups run a few times a day and review is manual, so a status can stay the same for days.
+Use `get_discovery_status` with that ID when the user asks later. Lookups run a few times a day, so a status can stay `queued` for a while. `in_review` means candidates were found but not registered, for example because a channel or catalog ID is already taken; it does not promise that a person will review them. Only `registered` returns catalog artist pages.
 
 ## Cite the catalog
 

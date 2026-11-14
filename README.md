@@ -29,7 +29,7 @@ The plugin has no hooks, no scripts and nothing that runs on your machine.
 | `get_listening_links` | Links to an original recording or a cover on YouTube Music, YouTube or Spotify | No |
 | `search_figures` | Search figures by character, title, brand or product name | Anonymous search demand |
 | `get_figure` | Release details and observed offers for one figure | No |
-| `suggest_discovery` | Suggest an artist the catalog lacks, for review | Yes, see below |
+| `suggest_discovery` | Suggest an artist the catalog lacks, for lookup | Yes, see below |
 | `get_discovery_status` | Check where a suggestion stands | No |
 
 ## Data and privacy
@@ -38,7 +38,7 @@ Every tool call goes to `figure-curator.com` over HTTPS. Read-only lookups send 
 
 Searches through `resolve_identity` and `search_figures` can record normalized catalog search terms or entity IDs, demand weights and result shortages without identifying the user. These signals guide catalog discovery; they do not directly change the public catalog. Do not send personal information in tool arguments.
 
-`suggest_discovery` explicitly sends an artist's name (up to 80 characters) and, optionally, the address of that artist's official YouTube channel. Oshi Atlas stores the suggestion without any information about who sent it, and a person reviews it before anything is added to the catalog. The skill tells the assistant to explain what will be sent and to wait for your agreement before calling it.
+`suggest_discovery` explicitly sends an artist's name (up to 80 characters) and, optionally, the address of that artist's official YouTube channel. Oshi Atlas stores the suggestion without any information about who sent it, and a later automated lookup can add the artists it finds to the catalog without human review. A suggestion can also end as not found, declined or left unregistered. The skill tells the assistant to explain what will be sent and to wait for your agreement before calling it.
 
 See the [privacy policy](https://figure-curator.com/privacy) and [terms](https://figure-curator.com/terms).
 
